@@ -1,0 +1,83 @@
+{% load static %}
+{% load cart_template_tags %}
+{% load category_template_tags %}
+
+<style>
+	.topbar {
+		background-color: white;
+		color: black !important;
+	}
+	.topbar a:hover{
+		color: black;
+	}
+</style>
+
+<header class="header1">
+	<div class="container-menu-header">
+
+```
+	<div class="topbar">
+		<div class="topbar-social">
+			<a href="#" class="topbar-social-item fab fa-facebook"></a>
+			<a href="#" class="topbar-social-item fab fa-instagram"></a>
+			<a href="#" class="topbar-social-item fab fa-pinterest-p"></a>
+			<a href="#" class="topbar-social-item fab fa-twitter"></a>
+			<a href="#" class="topbar-social-item fab fa-youtube"></a>
+		</div>
+
+		<span class="topbar-child1">
+			Free shipping for standard order over $100
+		</span>
+
+		<div class="topbar-child2">
+			<span class="topbar-email">
+				{% if request.user.is_authenticated %}
+					{{ request.user.username }}
+				{% else %}
+					Guest
+				{% endif %}
+			</span>
+		</div>
+	</div>
+
+	<div class="wrap_header">
+
+		<a href="/" class="logo">
+			<h2 style="color:black;font-weight:700;">
+				Style<span style="color:#2563eb;">Cart</span>
+			</h2>
+		</a>
+
+		<div class="wrap_menu">
+			<nav class="menu">
+				<ul class="main_menu">
+
+					<li><a href="/">Home</a></li>
+					<li><a href="/shop/">Shop</a></li>
+					<li><a href="#">Categories</a></li>
+
+					{% if request.user.is_authenticated %}
+						<li><a href="{% url 'logout' %}">Logout</a></li>
+					{% else %}
+						<li><a href="{% url 'login' %}">Login</a></li>
+					{% endif %}
+
+					<!-- Cart Icon -->
+					<li>
+						<div class="header-wrapicon2">
+							<a href="{% url 'core:order-summary' %}">
+								<img src="{% static 'images/icons/icon-header-02.png' %}" class="header-icon1" alt="ICON">
+								<span class="header-icons-noti">{{ request.user|cart_item_count }}</span>
+							</a>
+						</div>
+					</li>
+
+				</ul>
+			</nav>
+		</div>
+
+	</div>
+</div>
+```
+
+</header>
