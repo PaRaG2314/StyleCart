@@ -1,14 +1,9 @@
-# StyleCart Full-Fledged Fixes TODO - COMPLETE ✅
+# Task: Update free shipping threshold from $100 to 1000 rupees in header
 
-**Status:** 
-- shop.html fixed (currency load added)
-- ShopView ordering & active filter added (pagination warning fixed)
-- collectstatic run (static files up to date)
-- Server restarted, running clean at http://127.0.0.1:8000/
-- Core pages functional (home, shop)
+## Steps:
+- [x] 1. Create this TODO.md file
+- [x] 2. Edit templates/nav.html (primary header)
+- [x] 3. Edit templates/cart.html (3 instances in duplicated header)
+- [ ] 4. Test changes by running server and checking pages
+- [ ] 5. Mark complete
 
-**Minor notes:**
-- Some JS/CSS 404s persist (missing jquery/slick in static_in_env/js – non-critical for core function)
-- Visit http://127.0.0.1:8000/shop/ to verify
-
-Project is now in full-fledged working condition!
