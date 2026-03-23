@@ -1,0 +1,22 @@
+<div class="country-selector ms-3">
+    <select id="countrySelect" class="form-select form-select-sm" style="width: auto;">
+        <option value="IN" {% if country == 'IN' %}selected{% endif %}>₹ India</option>
+        <option value="US" {% if country == 'US' %}selected{% endif %}>$ USD</option>
+        <option value="UK" {% if country == 'UK' %}selected{% endif %}>£ GBP</option>
+        <option value="EU" {% if country == 'EU' %}selected{% endif %}>€ EUR</option>
+    </select>
+</div>
+
+<script>
+document.getElementById('countrySelect').addEventListener('change', function() {
+    document.cookie = 'country=' + this.value + '; path=/';
+    fetch('/set-country/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').getAttribute('content')
+        },
+        body: JSON.stringify({'country': this.value})
+    }).then(() => location.reload());
+});
+</script>

@@ -1,75 +1,130 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
+{% load currency %}
+{{ item.price|currency:country }}
+<div class="container mt-5 mb-5">
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h2>Order Summary</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Qty</th>
-            <th scope="col">Total Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for order_item in object.items.all %}
-          <tr>
-            <th scope="row">{{ forloop.counter }}</th>
-            <td>
-			<img src="{{ order_item.item.image.url }}" style="width: 130px;"> 
-            </td>
-            <td>{{ order_item.item.title }}</td>
-            <td>{{ order_item.item.price }}</td>
-            <td>
-            	<a href="{% url 'core:remove-single-item-from-cart' order_item.item.slug %}"><i class="fas fa-minus mr-3"></i></a>
-            	{{ order_item.quantity }}
-            	<a href="{% url 'core:add-to-cart' order_item.item.slug %}"><i class="fas fa-plus ml-3"></i></a>
-            </td>
-            <td>
-              {% if order_item.item.discount_price %}
-                  ${{ order_item.get_total_discount_item_price}}
-                  <span class="badge badge-primary">  Saving ${{ order_item.get_amount_saved }}</span>
-              {% else %}
-                  ${{ order_item.get_total_item_price}}
-              {% endif %}
-              <a style="color: red" href="{% url 'core:remove-from-cart' order_item.item.slug %}">
-              	<i class="fas fa-trash float-right"></i>
-              </a>
-            </td>
-          </tr>
-          {% empty %}
-          <tr>
-			<td colspan="5">Your cart is empty</td>
-          </tr>
-        </tbody>
-        {% endfor %}
-        {% if object.coupon %}
-        <tr>
-          <td colspan="5"><b>Coupon : </b></td>
-          <td>- ${{ object.coupon.amount }}</td>
-        </tr>
-        {% endif%}
-        {% if object.get_total %}
-        <tr>
-        	<td colspan="5"><b>Order Total : </b></td>
-        	<td><b>${{ object.get_total }}</b></td>
-        </tr>
-        <tr>
-        	<td colspan="5">
-        		<a href="/checkout" class="btn btn-warning float-right ml-2">Checkout</a>
-        		<a href="/" class="btn btn-primary float-right">Continue Shopping</a>
+  <h2 class="fw-bold mb-4">🛒 Order Summary</h2>
 
-        	</td>
-        </tr>
-        {% endif %}
-      </table>
-    </div>
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+```
+  <table class="table align-middle text-center">
+
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th class="text-start">Product</th>
+        <th>Price</th>
+        <th style="width:150px;">Qty</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for order_item in object.items.all %}
+      <tr>
+
+        <!-- INDEX -->
+        <td>{{ forloop.counter }}</td>
+
+        <!-- PRODUCT -->
+        <td class="text-start">
+          <div class="d-flex align-items-center" style="gap:15px;">
+            <img src="{{ order_item.item.image.url }}" 
+                 style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px;">
+            <span>{{ order_item.item.title }}</span>
+          </div>
+        </td>
+
+        <!-- PRICE -->
+        <td>{{ order_item.item.price|currency:country }}</td>
+
+        <!-- QUANTITY -->
+        <td>
+          <div class="d-flex justify-content-center align-items-center" style="gap:10px;">
+
+            <a href="{% url 'core:remove-single-item-from-cart' order_item.item.slug %}" 
+               class="btn btn-sm btn-outline-secondary">−</a>
+
+            <span>{{ order_item.quantity }}</span>
+
+            <a href="{% url 'core:add-to-cart' order_item.item.slug %}" 
+               class="btn btn-sm btn-outline-secondary">+</a>
+
+          </div>
+        </td>
+
+        <!-- TOTAL -->
+        <td>
+          {% if order_item.item.discount_price %}
+                <div class="fw-bold">
+{{ order_item.get_total_discount_item_price|currency:country }}
+              </div>
+              <small class="text-success">
+                Saving {{ order_item.get_amount_saved|currency:country }}
+              </small>
+          {% else %}
+              <div class="fw-bold">
+{{ order_item.get_total_item_price|currency:country }}
+              </div>
+          {% endif %}
+        </td>
+
+        <!-- REMOVE -->
+        <td>
+          <a href="{% url 'core:remove-from-cart' order_item.item.slug %}" 
+             class="btn btn-sm btn-outline-danger">
+             🗑
+          </a>
+        </td>
+
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6">Your cart is empty 🛒</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+
+</div>
+```
+
   </div>
+
+  <!-- TOTAL SECTION -->
+
+{% if object.get_total %}
+
+  <div class="d-flex justify-content-end mt-4">
+    <div class="card p-3 shadow-sm" style="width: 280px;">
+
+```
+  {% if object.coupon %}
+  <p>Coupon: - ${{ object.coupon.amount }}</p>
+  {% endif %}
+
+  <h5 class="mb-3">Total: <b>{{ object.get_total|currency:country }}</b></h5>
+
+  <a href="/checkout" class="btn btn-success w-100 mb-2">
+    Checkout
+  </a>
+
+  <a href="/" class="btn btn-outline-dark w-100">
+    Continue Shopping
+  </a>
+
+</div>
+```
+
+  </div>
+  {% endif %}
+
 </div>
 
 {% endblock content %}

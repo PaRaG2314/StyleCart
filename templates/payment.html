@@ -1,8 +1,9 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% load crispy_forms_tags %}
-
+{% load currency %}
 {% block extra_head %}
+{{ item.price|currency:country }}
 <style>
 #stripeBtnLabel {
   font-family: "Helvetica Neue", Helvetica, sans-serif;

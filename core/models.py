@@ -149,6 +149,10 @@ class Order(models.Model):
             total -= self.coupon.amount
         return total
 
+    def get_total_inr(self):
+        total = self.get_total()
+        return total * 83.5
+
 
 class BillingAddress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
