@@ -33,3 +33,7 @@ h5 {
     font-weight: 600;
     letter-spacing: 0.5px;
 }
+
+p {
+    line-height: 1.6;
+}
