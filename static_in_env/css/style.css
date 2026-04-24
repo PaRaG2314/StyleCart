@@ -47,3 +47,7 @@ p {
     color: #2563eb;
     border-bottom: 2px solid #2563eb;
 }
+
+.main_menu li {
+        margin: 0 14px;
+    }
