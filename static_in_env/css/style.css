@@ -92,3 +92,13 @@
 .product-card:hover {
     transform: translateY(-5px);
 }
+
+.main_menu li a {
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.main_menu li a:hover {
+    color: #2563eb;
+    border-bottom: 2px solid #2563eb;
+}
