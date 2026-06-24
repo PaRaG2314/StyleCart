@@ -15,12 +15,6 @@ A modern e-commerce web application built using Django.
 - Bootstrap
 - SQLite
 
-## 👨‍💻 Team Members
-- Parag
-- Priyanshu
-- Pratham
-- Rahul
-
 ## 📌 Setup Instructions
 
 1. Clone the repo:
