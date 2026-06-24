@@ -1,13 +1,5 @@
 # 🛒 StyleCart – E-Commerce Web Application
 
-## 👨‍💻 Team Members
-
-* Parag (2210990635)
-* Priyanshu (2210990685)
-* Rahul (2210990702)
-* Pratham (2210990676)
-
----
 
 ## 📌 Project Type
 
